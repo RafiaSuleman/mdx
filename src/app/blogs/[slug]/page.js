@@ -17,7 +17,7 @@ export async function generateMetadata({ params }) {
   const publishedAt = new Date(blog.publishedAt).toISOString();
   const modifiedAt = new Date(blog.updatedAt || blog.publishedAt).toISOString();
 
-  let imageList = ["/rafia"];
+  let imageList = ["/blogs/tea.jpeg"];
   if (blog.image) {
     imageList =
       typeof blog.image.filePath === "string"
@@ -25,10 +25,10 @@ export async function generateMetadata({ params }) {
         : blog.image;
   }
   const ogImages = imageList.map((img) => {
-    return { url: img.includes("http") ? img : siteMetadata.siteUrl + img };
+    return { url: img.includes("http") ? img : "http://localhost:3000" + img };
   });
 
-  const authors = blog?.author ? [blog.author] : siteMetadata.author;
+  const authors = blog?.author ? [blog.author] : "rafia";
 
   return {
     title: blog.title,
@@ -43,7 +43,7 @@ export async function generateMetadata({ params }) {
       publishedTime: publishedAt,
       modifiedTime: modifiedAt,
       images: ogImages,
-      authors: authors.length > 0 ? authors : [siteMetadata.author],
+      authors: authors.length > 0 ? authors : ["rafia"],
     },
     twitter: {
       card: "summary_large_image",
@@ -75,7 +75,7 @@ export default function BlogPage({ params }) {
     "dateModified": new Date(blog.updatedAt || blog.publishedAt).toISOString(),
     "author": [{
         "@type": "Person",
-        "name": blog?.author ? [blog.author] : siteMetadata.author,
+        "name": blog?.author ? [blog.author] : "rafia",
         "url": "http://localhost:3000/",
       }]
   }
